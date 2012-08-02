@@ -33,13 +33,13 @@
 - (void)popToViewController:(UIViewController *)vc animated:(BOOL)animated;
 
 - (void)pushViewController:(UIViewController *)viewController
-                 behindOf:(UIViewController *)anchorViewController
+                  behindOf:(UIViewController *)anchorViewController
              maximumHeight:(BOOL)maxHeight
                   animated:(BOOL)animated;
 
 - (void)pushViewController:(UIViewController *)viewController
-                 behindOf:(UIViewController *)anchorViewController
-              maximumWidth:(BOOL)maxWidth
+                  behindOf:(UIViewController *)anchorViewController
+             maximumHeight:(BOOL)maxHeight
                   animated:(BOOL)animated
              configuration:(void (^)(CIPopdownNavigationItem *item))configuration;
 

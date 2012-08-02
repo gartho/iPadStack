@@ -7,6 +7,10 @@
 //
 
 #import "CIAppDelegate.h"
+#import "CIPopdownNavigationController.h"
+#import "CIPopdownRowViewController.h"
+#import "CIPopdownNavigationItem.h"
+#import "CIPopdownDemoViewController.h"
 
 @implementation CIAppDelegate
 
@@ -14,13 +18,29 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    // Override point for customization after application launch.
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    UIViewController *vc = [[CIPopdownDemoViewController alloc] init];
+    CIPopdownNavigationController *fvc = [[CIPopdownNavigationController alloc] initWithRootViewController:vc
+                                configuration:^(CIPopdownNavigationItem *item) {
+                                                item.height = 200; //600;
+                                                item.nextItemDistance = 200; //2;
+                                        }];
+
+    self.window.rootViewController = fvc;
+    fvc.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+    
     [self.window makeKeyAndVisible];
+    
     return YES;
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

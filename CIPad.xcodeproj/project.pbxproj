@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A738A9AE15C6E5BA00340FA7 /* UIViewController+CIPopdownNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A738A9AD15C6E5BA00340FA7 /* UIViewController+CIPopdownNavigationController.m */; };
+		A739671115C2A2B000925CE3 /* CIPopdownNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A739671015C2A2B000925CE3 /* CIPopdownNavigationController.m */; };
+		A739671715C2A6C400925CE3 /* CIPopdownNavigationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A739671615C2A6C400925CE3 /* CIPopdownNavigationItem.m */; };
+		A739671E15C2F19200925CE3 /* CIPopdownRowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A739671D15C2F19200925CE3 /* CIPopdownRowViewController.m */; };
+		A7B9C51F15CA755900B75988 /* CIPopdownDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B9C51E15CA755900B75988 /* CIPopdownDemoViewController.m */; };
 		A7DCA5BC15C19D9B00F8C4C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCA5BB15C19D9B00F8C4C3 /* UIKit.framework */; };
 		A7DCA5BE15C19D9B00F8C4C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCA5BD15C19D9B00F8C4C3 /* Foundation.framework */; };
 		A7DCA5C015C19D9B00F8C4C3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCA5BF15C19D9B00F8C4C3 /* CoreGraphics.framework */; };
@@ -34,6 +39,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A738A9AC15C6E5BA00340FA7 /* UIViewController+CIPopdownNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CIPopdownNavigationController.h"; sourceTree = "<group>"; };
+		A738A9AD15C6E5BA00340FA7 /* UIViewController+CIPopdownNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CIPopdownNavigationController.m"; sourceTree = "<group>"; };
+		A739670F15C2A2B000925CE3 /* CIPopdownNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIPopdownNavigationController.h; sourceTree = "<group>"; };
+		A739671015C2A2B000925CE3 /* CIPopdownNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIPopdownNavigationController.m; sourceTree = "<group>"; };
+		A739671515C2A6C400925CE3 /* CIPopdownNavigationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIPopdownNavigationItem.h; sourceTree = "<group>"; };
+		A739671615C2A6C400925CE3 /* CIPopdownNavigationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIPopdownNavigationItem.m; sourceTree = "<group>"; };
+		A739671C15C2F19200925CE3 /* CIPopdownRowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIPopdownRowViewController.h; sourceTree = "<group>"; };
+		A739671D15C2F19200925CE3 /* CIPopdownRowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIPopdownRowViewController.m; sourceTree = "<group>"; };
+		A7B9C51D15CA755900B75988 /* CIPopdownDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIPopdownDemoViewController.h; sourceTree = "<group>"; };
+		A7B9C51E15CA755900B75988 /* CIPopdownDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIPopdownDemoViewController.m; sourceTree = "<group>"; };
 		A7DCA5B715C19D9B00F8C4C3 /* CIPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CIPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7DCA5BB15C19D9B00F8C4C3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A7DCA5BD15C19D9B00F8C4C3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -80,6 +95,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A711275E15C9879800034070 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				A7DCA5CC15C19D9B00F8C4C3 /* CIAppDelegate.h */,
+				A7DCA5CD15C19D9B00F8C4C3 /* CIAppDelegate.m */,
+				A7B9C51D15CA755900B75988 /* CIPopdownDemoViewController.h */,
+				A7B9C51E15CA755900B75988 /* CIPopdownDemoViewController.m */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		A739670D15C2A25900925CE3 /* Popdown Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				A739670F15C2A2B000925CE3 /* CIPopdownNavigationController.h */,
+				A739671015C2A2B000925CE3 /* CIPopdownNavigationController.m */,
+				A739671515C2A6C400925CE3 /* CIPopdownNavigationItem.h */,
+				A739671615C2A6C400925CE3 /* CIPopdownNavigationItem.m */,
+				A739671C15C2F19200925CE3 /* CIPopdownRowViewController.h */,
+				A739671D15C2F19200925CE3 /* CIPopdownRowViewController.m */,
+				A738A9AC15C6E5BA00340FA7 /* UIViewController+CIPopdownNavigationController.h */,
+				A738A9AD15C6E5BA00340FA7 /* UIViewController+CIPopdownNavigationController.m */,
+			);
+			name = "Popdown Navigation";
+			sourceTree = "<group>";
+		};
 		A7DCA5AC15C19D9B00F8C4C3 = {
 			isa = PBXGroup;
 			children = (
@@ -114,8 +155,8 @@
 		A7DCA5C315C19D9B00F8C4C3 /* CIPad */ = {
 			isa = PBXGroup;
 			children = (
-				A7DCA5CC15C19D9B00F8C4C3 /* CIAppDelegate.h */,
-				A7DCA5CD15C19D9B00F8C4C3 /* CIAppDelegate.m */,
+				A711275E15C9879800034070 /* Application */,
+				A739670D15C2A25900925CE3 /* Popdown Navigation */,
 				A7DCA5CF15C19D9B00F8C4C3 /* CIPad.xcdatamodeld */,
 				A7DCA5C415C19D9B00F8C4C3 /* Supporting Files */,
 			);
@@ -262,6 +303,11 @@
 				A7DCA5CA15C19D9B00F8C4C3 /* main.m in Sources */,
 				A7DCA5CE15C19D9B00F8C4C3 /* CIAppDelegate.m in Sources */,
 				A7DCA5D115C19D9B00F8C4C3 /* CIPad.xcdatamodeld in Sources */,
+				A739671115C2A2B000925CE3 /* CIPopdownNavigationController.m in Sources */,
+				A739671715C2A6C400925CE3 /* CIPopdownNavigationItem.m in Sources */,
+				A739671E15C2F19200925CE3 /* CIPopdownRowViewController.m in Sources */,
+				A738A9AE15C6E5BA00340FA7 /* UIViewController+CIPopdownNavigationController.m in Sources */,
+				A7B9C51F15CA755900B75988 /* CIPopdownDemoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +475,7 @@
 				A7DCA5EC15C19D9B00F8C4C3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A7DCA5ED15C19D9B00F8C4C3 /* Build configuration list for PBXNativeTarget "CIPadTests" */ = {
 			isa = XCConfigurationList;
@@ -437,6 +484,7 @@
 				A7DCA5EF15C19D9B00F8C4C3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

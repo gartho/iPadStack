@@ -67,30 +67,57 @@ BOOL CGFloatNotEqual(CGFloat l, CGFloat r) {
     }
     return self;
 }
+#pragma mark - UIViewController interface
 
-- (void)dealloc {
-    [self detachGestureRecognizer];
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+- (void)loadView {
+    self.view = [[UIView alloc] init];
+    
+    for (CIPopdownRowViewController *vc in self.viewControllers) {
+        vc.view.frame = CGRectMake(vc.popdownNavigationItem.currentViewPosition.x,
+                                   vc.popdownNavigationItem.currentViewPosition.y,
+                                   self.view.bounds.size.width,
+                                   vc.popdownNavigationItem.height);
+        vc.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [self.view addSubview:vc.view];
     }
-    return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    [self attachGestureRecognizer];
+    self.view.backgroundColor = [UIColor clearColor];
 }
 
-- (void)viewDidUnload {
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)orientation
+{
+    NSLog(@"ORIENTATION, new size: %@", NSStringFromCGSize(self.view.bounds.size));
+    [super didRotateFromInterfaceOrientation:orientation];
+    [self doLayout];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self doLayout];
+}
+
+- (void)viewWillUnload
+{
+    [self detachGestureRecognizer];
+    self.firstTouchedView = nil;
+    self.outOfBoundsViewController = nil;
+}
+
+- (void)viewDidUnload
+{
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
+    NSLog(@"FRLayeredNavigationController (%@): viewDidUnload", self);
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
 	return YES;
 }
 
@@ -195,6 +222,7 @@ BOOL CGFloatNotEqual(CGFloat l, CGFloat r) {
 
 - (CGFloat)savePlaceWanted:(CGFloat)pointsWanted {
     CGFloat yTranslation = 0;
+    NSLog(@"savePlaceWanted: %f", pointsWanted);
     if (pointsWanted <= 0) {
         return 0;
     }
@@ -273,8 +301,8 @@ BOOL CGFloatNotEqual(CGFloat l, CGFloat r) {
         const CGPoint myPos = vc.popdownNavigationItem.currentViewPosition;
         const CGPoint myInitPos = vc.popdownNavigationItem.initialViewPosition;
         
-        const CGFloat curDiff = myPos.y - last.popdownNavigationItem.currentViewPosition.y;
-        const CGFloat initDiff = myInitPos.y - last.popdownNavigationItem.initialViewPosition.y;
+        const CGFloat curDiff = myPos.y + last.popdownNavigationItem.currentViewPosition.y;
+        const CGFloat initDiff = myInitPos.y + last.popdownNavigationItem.initialViewPosition.y;
         const CGFloat maxDiff = last.view.bounds.size.height;
         
         if (yTranslation == 0 && (CGFloatNotEqual(curDiff, initDiff) && CGFloatNotEqual(curDiff, maxDiff))) {
@@ -529,26 +557,28 @@ BOOL CGFloatNotEqual(CGFloat l, CGFloat r) {
                                       newVC.popdownNavigationItem.currentViewPosition.y,
                                       self.view.bounds.size.width,
                                       height);
+        
+    CGRect offscreenFrame = CGRectMake(newVC.popdownNavigationItem.currentViewPosition.x,
+                                      newVC.popdownNavigationItem.currentViewPosition.y - 200,
+                                      self.view.bounds.size.width,
+                                      height);
     
-    // HERE!!
-    CGRect offscreenFrame = CGRectMake(MAX(1024, onscreenFrame.origin.x),
-                                       0,
-                                       onscreenFrame.size.width,
-                                       onscreenFrame.size.height);
     newVC.view.frame = offscreenFrame;
     
     [self.viewControllers addObject:newVC];
     [self addChildViewController:newVC];
     [self.view addSubview:newVC.view];
+    
     [newVC didMoveToParentViewController:self];
+
     
     [UIView animateWithDuration:animated ? 0.5 : 0
                           delay:0
                         options: UIViewAnimationCurveEaseOut
                      animations:^{
-                         CGFloat saved = [self savePlaceWanted:onscreenFrame.origin.x + height - overallHeight];
-                         newVC.view.frame = CGRectMake(onscreenFrame.origin.x - saved,
-                                                       onscreenFrame.origin.y,
+                         CGFloat saved = [self savePlaceWanted:onscreenFrame.origin.y + height - overallHeight];
+                         newVC.view.frame = CGRectMake(onscreenFrame.origin.x,
+                                                       onscreenFrame.origin.y - saved,
                                                        onscreenFrame.size.width,
                                                        onscreenFrame.size.height);
                          newVC.popdownNavigationItem.currentViewPosition = newVC.view.frame.origin;
@@ -556,6 +586,18 @@ BOOL CGFloatNotEqual(CGFloat l, CGFloat r) {
                      }
                      completion:^(BOOL finished) {
                      }];
+}
+
+- (void)pushViewController:(UIViewController *)contentViewController
+                  behindOf:(UIViewController *)anchorViewController
+             maximumHeight:(BOOL)maxHeight
+                  animated:(BOOL)animated {
+    [self pushViewController:contentViewController
+                    behindOf:anchorViewController
+               maximumHeight:maxHeight
+                    animated:animated
+               configuration:^(CIPopdownNavigationItem *item) {
+               }];
 }
 
 

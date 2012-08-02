@@ -21,7 +21,7 @@
 
 #pragma mark - init/dealloc
 
-- (id)initWithContentViewController:(UIViewController *)vc maximumWidth:(BOOL)maxHeight {
+- (id)initWithContentViewController:(UIViewController *)vc maximumHeight:(BOOL)maxHeight {
     if ((self = [super init])) {
         self.popdownNavigationItem = [[CIPopdownNavigationItem alloc] init];
         self.popdownNavigationItem.popdownController = self;
@@ -45,7 +45,7 @@
     CGRect contentFrame = CGRectMake(0,
                                      0,
                                      self.view.bounds.size.width,
-                                     self.view.bounds.size.height);
+                                     200);
     
     self.contentViewController.view.frame = contentFrame;
 }
@@ -69,13 +69,12 @@
 }
 
 - (void)viewWillLayoutSubviews {
-    if (self != [self.contentViewController.childViewControllers objectAtIndex:0]) {
-        self.view.layer.shadowRadius = 10.0;
-        self.view.layer.shadowOffset = CGSizeMake(-2.0, -3.0);
-        self.view.layer.shadowOpacity = 0.5;
-        self.view.layer.shadowColor = [UIColor blackColor].CGColor;
-        self.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.view.bounds].CGPath;
-    }
+    // Lazy add shadow
+    self.view.layer.shadowRadius = 10.0;
+    self.view.layer.shadowOffset = CGSizeMake(2.0, 3.0);
+    self.view.layer.shadowOpacity = 0.5;
+    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.view.bounds].CGPath;
     
     [self doViewLayout];
 }
