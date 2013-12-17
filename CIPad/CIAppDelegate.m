@@ -2,15 +2,13 @@
 //  CIAppDelegate.m
 //  CIPad
 //
-//  Created by Garth on 26/07/2012.
-//  Copyright (c) 2012 SAS Institute. All rights reserved.
-//
 
 #import "CIAppDelegate.h"
 #import "CIPopdownNavigationController.h"
 #import "CIPopdownRowViewController.h"
 #import "CIPopdownNavigationItem.h"
 #import "CIPopdownDemoViewController.h"
+#import "CICampaignDetailViewController.h"
 
 @implementation CIAppDelegate
 
@@ -19,28 +17,22 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    
+    // Initialize the window
+	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	self.window.backgroundColor = [UIColor blackColor];
+	
     UIViewController *vc = [[CIPopdownDemoViewController alloc] init];
     CIPopdownNavigationController *fvc = [[CIPopdownNavigationController alloc] initWithRootViewController:vc
-                                configuration:^(CIPopdownNavigationItem *item) {
-                                                item.height = 200; //600;
-                                                item.nextItemDistance = 200; //2;
-                                        }];
+                                    configuration:^(CIPopdownNavigationItem *item) {
+                                                    item.height = 200; //600;
+                                                    item.nextItemDistance = 64;
+                                        //2;
+                                    }];
 
-    self.window.rootViewController = fvc;
-    fvc.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
-    
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:fvc];
+    self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
-    
     return YES;
-    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

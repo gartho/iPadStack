@@ -2,13 +2,13 @@
 //  CIPopdownNavigationController.m
 //  CIPad
 //
-//  Created by Garth on 27/07/2012.
-//  Copyright (c) 2012 SAS Institute. All rights reserved.
+
 //
 
 #import "CIPopdownNavigationController.h"
 #import "CIPopdownRowViewController.h"
 #import "UIViewController+CIPopdownNavigationController.h"
+#import <QuartzCore/CAAnimation.h>
 
 #define CIPopdownNavigationControllerStandardDistance ((float)64)
 #define CIPopdownNavigationControllerStandardHeight ((float)400)
@@ -17,7 +17,7 @@
 typedef enum {
     SnapNearest,
     SnapCompact,
-    SnapExpand
+    SnapRemove
 } SnapMethod;
 
 BOOL CGFloatEquals(CGFloat l, CGFloat r) {
@@ -85,7 +85,6 @@ BOOL CGFloatNotEqual(CGFloat l, CGFloat r) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [self attachGestureRecognizer];
     self.view.backgroundColor = [UIColor clearColor];
 }
@@ -265,7 +264,7 @@ BOOL CGFloatNotEqual(CGFloat l, CGFloat r) {
         if (f.origin.y <= initPos.y) {
             f.origin.y = initPos.y;
         }
-        
+
         vc.view.frame = f;
         navItem.currentViewPosition = f.origin;
     
@@ -273,7 +272,6 @@ BOOL CGFloatNotEqual(CGFloat l, CGFloat r) {
         CGRect f = vc.view.frame;
         CGFloat yTranslation;
         if (f.origin.y < initPos.y && origYTranslation < 0) {
-            /* if view already left from left bound and still moving left, half moving speed */
             yTranslation = origYTranslation / 2;
         } else {
             yTranslation = origYTranslation;
@@ -298,35 +296,42 @@ BOOL CGFloatNotEqual(CGFloat l, CGFloat r) {
     CGFloat yTranslation = 0;
     
     for (CIPopdownRowViewController *vc in self.viewControllers) {
+    
         const CGPoint myPos = vc.popdownNavigationItem.currentViewPosition;
         const CGPoint myInitPos = vc.popdownNavigationItem.initialViewPosition;
-        
+       
         const CGFloat curDiff = myPos.y + last.popdownNavigationItem.currentViewPosition.y;
         const CGFloat initDiff = myInitPos.y + last.popdownNavigationItem.initialViewPosition.y;
-        const CGFloat maxDiff = last.view.bounds.size.height;
+         CGFloat maxDiff = last.view.bounds.size.height;
+       // const CGFloat maxDiff = 200; // Fixme
         
         if (yTranslation == 0 && (CGFloatNotEqual(curDiff, initDiff) && CGFloatNotEqual(curDiff, maxDiff))) {
             switch (method) {
                 case SnapNearest: {
+                    NSLog(@"Snapping to nearest");
                     if ((curDiff - initDiff) > (maxDiff - curDiff)) {
-                        /* right snapping point is nearest */
+                        // Bottom point is nearest
                         yTranslation = maxDiff - curDiff;
                     } else {
-                        /* left snapping point is nearest */
+                        // Top point is nearest
                         yTranslation = initDiff - curDiff;
                     }
                     break;
                 }
                 case SnapCompact: {
+                    NSLog(@"Snapping to compact");
                     yTranslation = initDiff - curDiff;
                     break;
                 }
-                case SnapExpand: {
+                case SnapRemove: {
+                    // Fixme: Remove view controller
+                    NSLog(@"Snapping to expand");
                     yTranslation = maxDiff - curDiff;
                     break;
                 }
             }
         }
+        NSLog(@"yTranslation %f", yTranslation);
         [CIPopdownNavigationController viewController:vc yTranslation:yTranslation bounded:YES];
         last = vc;
     }
@@ -338,13 +343,14 @@ BOOL CGFloatNotEqual(CGFloat l, CGFloat r) {
     
     if (abs(velocity) > CIPopdownNavigationControllerSnappingVelocityThreshold) {
         if (velocity > 0) {
-            method = SnapExpand;
+            method = SnapRemove;
         } else {
             method = SnapCompact;
         }
     } else {
         method = SnapNearest;
     }
+   
     [self viewControllersToSnappingPointsMethod:method];
 }
 
@@ -378,12 +384,12 @@ BOOL CGFloatNotEqual(CGFloat l, CGFloat r) {
             const CGFloat minDiff = parentInitPos.y - myInitPos.y;
             
             if (parentOldPos.y >= myPos.y + myHeight || parentPos.y >= myPos.y + myHeight) {
-                /* if snapped to parent's right border, move with parent */
+                // if snapped to parent's top border, move with parent
                 newY = parentPos.y - myHeight;
             }
             
             if (parentPos.y - myNewPos.y <= minDiff) {
-                /* at least minDiff difference between parent and me */
+                // at least minDiff difference between parent and me
                 newY = parentPos.y - minDiff;
             }
             
@@ -397,27 +403,15 @@ BOOL CGFloatNotEqual(CGFloat l, CGFloat r) {
             yTranslationGesture < 0) {
             const BOOL boundedMove = !isTouchedView;
             
-            /*
-             * IF no view controller is out of bounds (too far on the left)
-             * OR if me who is out of bounds
-             * OR the translation goes to the left again
-             * THEN: apply the translation
-             */
             const BOOL outOfBoundsMove = [CIPopdownNavigationController viewController:me
                                                                           yTranslation:yTranslation
                                                                                bounded:boundedMove];
             if (outOfBoundsMove) {
-                /* this move was out of bounds */
                 self.outOfBoundsViewController = me;
             } else if(!outOfBoundsMove && self.outOfBoundsViewController == me) {
-                /* I have been moved out of bounds some time ago but now I'm back in the bounds :-), so:
-                 * - no one can be out of bounds now
-                 * - I have to be reset to my initial position
-                 * - discard the rest of the translation
-                 */
                 self.outOfBoundsViewController = nil;
                 [CIPopdownNavigationController viewControllerToInitialPosition:me];
-                break; /* this discards the rest of the translation (i.e. stops the loop) */
+                break;
             }
         }
         
@@ -517,15 +511,16 @@ BOOL CGFloatNotEqual(CGFloat l, CGFloat r) {
 
 - (void)pushViewController:(UIViewController *)contentViewController
                   behindOf:(UIViewController *)anchorViewController
-              maximumHeight:(BOOL)maxHeight
+             maximumHeight:(BOOL)maxHeight
                   animated:(BOOL)animated
              configuration:(void (^)(CIPopdownNavigationItem *item))configuration {
     
     CIPopdownRowViewController *newVC = [[CIPopdownRowViewController alloc]
-                                initWithContentViewController:contentViewController maximumHeight:maxHeight];
+                                initWithContentViewController:contentViewController
+                                                maximumHeight:maxHeight];
     
     const CIPopdownNavigationItem *navItem = newVC.popdownNavigationItem;
-    // Need protected Implementation?!
+    // Need protected Implementation?
     const CIPopdownNavigationItem *parentNavItem = anchorViewController.popdownNavigationItem;
     
     const CGFloat overallHeight = self.view.bounds.size.height > 0 ?
@@ -559,7 +554,7 @@ BOOL CGFloatNotEqual(CGFloat l, CGFloat r) {
                                       height);
         
     CGRect offscreenFrame = CGRectMake(newVC.popdownNavigationItem.currentViewPosition.x,
-                                      newVC.popdownNavigationItem.currentViewPosition.y - 200,
+                                      newVC.popdownNavigationItem.currentViewPosition.y - 200, // TODO const.
                                       self.view.bounds.size.width,
                                       height);
     
@@ -572,7 +567,7 @@ BOOL CGFloatNotEqual(CGFloat l, CGFloat r) {
     [newVC didMoveToParentViewController:self];
 
     
-    [UIView animateWithDuration:animated ? 0.5 : 0
+    [UIView animateWithDuration:animated ? 0.4 : 0
                           delay:0
                         options: UIViewAnimationCurveEaseOut
                      animations:^{
@@ -585,6 +580,15 @@ BOOL CGFloatNotEqual(CGFloat l, CGFloat r) {
                          
                      }
                      completion:^(BOOL finished) {
+//                         CABasicAnimation *bounce = [CABasicAnimation animationWithKeyPath:@"position.y"];
+//                         bounce.duration = 0.05;
+//                         bounce.fromValue = [NSNumber numberWithInt:newVC.popdownNavigationItem.currentViewPosition.y + 100];
+//                         bounce.toValue = [NSNumber numberWithInt:newVC.popdownNavigationItem.currentViewPosition.y + 103];
+//                         bounce.repeatCount = 1;
+//                         bounce.autoreverses = YES;
+//                         
+//                         bounce.removedOnCompletion = NO;
+//                         [newVC.view.layer addAnimation:bounce forKey:@"bounce"];
                      }];
 }
 

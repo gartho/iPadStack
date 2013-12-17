@@ -2,8 +2,6 @@
 //  CIPopdownRowControllerViewController.m
 //  CIPad
 //
-//  Created by Garth on 28/07/2012.
-//  Copyright (c) 2012 SAS Institute. All rights reserved.
 //
 
 #import "CIPopdownRowViewController.h"
@@ -45,7 +43,7 @@
     CGRect contentFrame = CGRectMake(0,
                                      0,
                                      self.view.bounds.size.width,
-                                     200);
+                                     self.popdownNavigationItem.height);
     
     self.contentViewController.view.frame = contentFrame;
 }

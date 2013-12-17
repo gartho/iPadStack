@@ -2,9 +2,6 @@
 //  CIPopdownDemoViewController.m
 //  CIPad
 //
-//  Created by Garth on 02/08/2012.
-//  Copyright (c) 2012 SAS Institute. All rights reserved.
-//
 
 #import "CIPopdownDemoViewController.h"
 
@@ -45,7 +42,6 @@
     }];
 
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];

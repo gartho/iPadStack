@@ -2,8 +2,6 @@
 //  CIPopdownNavigationController.h
 //  CIPad
 //
-//  Created by Garth Oatley on 27/07/2012.
-//  Copyright (c) 2012 SAS Institute. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
