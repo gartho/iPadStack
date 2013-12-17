@@ -12,6 +12,10 @@
 		A739671715C2A6C400925CE3 /* CIPopdownNavigationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A739671615C2A6C400925CE3 /* CIPopdownNavigationItem.m */; };
 		A739671E15C2F19200925CE3 /* CIPopdownRowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A739671D15C2F19200925CE3 /* CIPopdownRowViewController.m */; };
 		A7B9C51F15CA755900B75988 /* CIPopdownDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B9C51E15CA755900B75988 /* CIPopdownDemoViewController.m */; };
+		A7B9C52915CA9A9400B75988 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B9C52815CA9A9400B75988 /* QuartzCore.framework */; };
+		A7B9C57F15CC00C200B75988 /* UIFont+CIPadAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B9C57E15CC00C200B75988 /* UIFont+CIPadAdditions.m */; };
+		A7B9C58315CC016400B75988 /* CIDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B9C58215CC016400B75988 /* CIDefines.m */; };
+		A7B9C58715CC1D3700B75988 /* CICampaignDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B9C58615CC1D3700B75988 /* CICampaignDetailViewController.m */; };
 		A7DCA5BC15C19D9B00F8C4C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCA5BB15C19D9B00F8C4C3 /* UIKit.framework */; };
 		A7DCA5BE15C19D9B00F8C4C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCA5BD15C19D9B00F8C4C3 /* Foundation.framework */; };
 		A7DCA5C015C19D9B00F8C4C3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCA5BF15C19D9B00F8C4C3 /* CoreGraphics.framework */; };
@@ -49,6 +53,13 @@
 		A739671D15C2F19200925CE3 /* CIPopdownRowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIPopdownRowViewController.m; sourceTree = "<group>"; };
 		A7B9C51D15CA755900B75988 /* CIPopdownDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIPopdownDemoViewController.h; sourceTree = "<group>"; };
 		A7B9C51E15CA755900B75988 /* CIPopdownDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIPopdownDemoViewController.m; sourceTree = "<group>"; };
+		A7B9C52815CA9A9400B75988 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A7B9C57D15CC00C200B75988 /* UIFont+CIPadAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+CIPadAdditions.h"; sourceTree = "<group>"; };
+		A7B9C57E15CC00C200B75988 /* UIFont+CIPadAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+CIPadAdditions.m"; sourceTree = "<group>"; };
+		A7B9C58115CC016400B75988 /* CIDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIDefines.h; sourceTree = "<group>"; };
+		A7B9C58215CC016400B75988 /* CIDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIDefines.m; sourceTree = "<group>"; };
+		A7B9C58515CC1D3700B75988 /* CICampaignDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CICampaignDetailViewController.h; sourceTree = "<group>"; };
+		A7B9C58615CC1D3700B75988 /* CICampaignDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CICampaignDetailViewController.m; sourceTree = "<group>"; };
 		A7DCA5B715C19D9B00F8C4C3 /* CIPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CIPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7DCA5BB15C19D9B00F8C4C3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A7DCA5BD15C19D9B00F8C4C3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -74,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7B9C52915CA9A9400B75988 /* QuartzCore.framework in Frameworks */,
 				A7DCA5BC15C19D9B00F8C4C3 /* UIKit.framework in Frameworks */,
 				A7DCA5BE15C19D9B00F8C4C3 /* Foundation.framework in Frameworks */,
 				A7DCA5C015C19D9B00F8C4C3 /* CoreGraphics.framework in Frameworks */,
@@ -121,6 +133,49 @@
 			name = "Popdown Navigation";
 			sourceTree = "<group>";
 		};
+		A7B9C57615CBE3FA00B75988 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A7B9C58415CC1CF900B75988 /* Campaign Detail */,
+				A739670D15C2A25900925CE3 /* Popdown Navigation */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		A7B9C57815CBE41500B75988 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		A7B9C57915CBE42100B75988 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				A7B9C57D15CC00C200B75988 /* UIFont+CIPadAdditions.h */,
+				A7B9C57E15CC00C200B75988 /* UIFont+CIPadAdditions.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		A7B9C58015CC014C00B75988 /* Other Files */ = {
+			isa = PBXGroup;
+			children = (
+				A7B9C58115CC016400B75988 /* CIDefines.h */,
+				A7B9C58215CC016400B75988 /* CIDefines.m */,
+			);
+			name = "Other Files";
+			sourceTree = "<group>";
+		};
+		A7B9C58415CC1CF900B75988 /* Campaign Detail */ = {
+			isa = PBXGroup;
+			children = (
+				A7B9C58515CC1D3700B75988 /* CICampaignDetailViewController.h */,
+				A7B9C58615CC1D3700B75988 /* CICampaignDetailViewController.m */,
+			);
+			name = "Campaign Detail";
+			sourceTree = "<group>";
+		};
 		A7DCA5AC15C19D9B00F8C4C3 = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +198,7 @@
 		A7DCA5BA15C19D9B00F8C4C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A7B9C52815CA9A9400B75988 /* QuartzCore.framework */,
 				A7DCA5BB15C19D9B00F8C4C3 /* UIKit.framework */,
 				A7DCA5BD15C19D9B00F8C4C3 /* Foundation.framework */,
 				A7DCA5BF15C19D9B00F8C4C3 /* CoreGraphics.framework */,
@@ -155,8 +211,11 @@
 		A7DCA5C315C19D9B00F8C4C3 /* CIPad */ = {
 			isa = PBXGroup;
 			children = (
+				A7B9C58015CC014C00B75988 /* Other Files */,
 				A711275E15C9879800034070 /* Application */,
-				A739670D15C2A25900925CE3 /* Popdown Navigation */,
+				A7B9C57915CBE42100B75988 /* Categories */,
+				A7B9C57815CBE41500B75988 /* Views */,
+				A7B9C57615CBE3FA00B75988 /* View Controllers */,
 				A7DCA5CF15C19D9B00F8C4C3 /* CIPad.xcdatamodeld */,
 				A7DCA5C415C19D9B00F8C4C3 /* Supporting Files */,
 			);
@@ -308,6 +367,9 @@
 				A739671E15C2F19200925CE3 /* CIPopdownRowViewController.m in Sources */,
 				A738A9AE15C6E5BA00340FA7 /* UIViewController+CIPopdownNavigationController.m in Sources */,
 				A7B9C51F15CA755900B75988 /* CIPopdownDemoViewController.m in Sources */,
+				A7B9C57F15CC00C200B75988 /* UIFont+CIPadAdditions.m in Sources */,
+				A7B9C58315CC016400B75988 /* CIDefines.m in Sources */,
+				A7B9C58715CC1D3700B75988 /* CICampaignDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
